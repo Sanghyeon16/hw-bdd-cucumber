@@ -21,14 +21,15 @@ end
 # Make sure that one string (regexp) occurs before or after another one
 #   on the same page
 
+When /^I press '(.*)'/ do |button|
+  click_button button
+end
+
 Then /I should see "(.*)" before "(.*)"/ do |e1, e2|
   #  ensure that that e1 occurs before e2.
   #  page.body is the entire content of the page as a string.
-  fail "Unimplemented"
-end
-
-When /^I press '(.*)'/ do |button|
-  click_button button
+  expect(/[\s\S]*#{e1}[\s\S]*#{e1}/).to match(page.body)
+  # fail "Unimplemented"
 end
 
 # Make it easier to express checking or unchecking several boxes at once
